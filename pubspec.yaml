@@ -1,0 +1,14 @@
+name: teledart_app
+description: api written on top of teledart, aimed to simplify work with commands and callbacks
+version: 0.0.1
+
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"
+
+dependencies:
+  teledart: ^0.1.4
+  meta: ^1.3.0
+
+dev_dependencies:
+  test: ^1.16.0
+  pedantic: ^1.10.0
