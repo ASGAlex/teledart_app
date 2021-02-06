@@ -147,6 +147,7 @@ abstract class Command {
   /// action and handle it instead of any other commands. Also the instance will be
   /// automatically deleted from array of preserved commands. So if you need to intercept
   /// more than one message, call this function again and again.
+  @protected
   void callMeOnNextMessage(int chatId) {
     _CommandStorage().saveInstanceForNextMessage(chatId, this);
   }
