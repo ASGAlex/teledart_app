@@ -51,7 +51,7 @@ void main() {
     final cmd = ComplexCommand.withAction(() => TestActionCommand(), 'testAction',
         {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
 
-    expect(cmd.arguments?['action'], 'testAction');
+    expect(cmd.arguments?[ComplexCommand.ACTION], 'testAction');
     expect(cmd.arguments?['opt1'], 'option_1_Data');
     expect(cmd.arguments?['opt2'], 'option_2_Data');
   });
