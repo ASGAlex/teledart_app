@@ -1,5 +1,5 @@
 name: teledart_app
-description: api written on top of teledart, aimed to simplify work with commands and callbacks
+description: API written on top of teledart, aimed to simplify work with commands and callbacks
 version: 0.0.1
 
 environment:
