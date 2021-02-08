@@ -23,9 +23,11 @@ class _Router {
   }
 
   void dispatch(Update data) {
+    final commandName = _discoverCommandName(data);
     for (var builder in _middleware) {
       var cmd = builder();
       cmd.isCallbackQuery = data.callback_query != null;
+      cmd.isCmd = commandName.isNotEmpty;
       cmd.handle(data, _telegram);
     }
 
@@ -38,7 +40,6 @@ class _Router {
     if (cmd != null) {
       cmd.run(message, _telegram);
     } else {
-      final commandName = _discoverCommandName(data);
       cmd = _buildCommand(commandName);
       if (cmd != null) {
         if (!(data.callback_query == null && cmd.system)) {
