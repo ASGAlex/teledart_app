@@ -60,6 +60,25 @@ abstract class Command {
     return cmd;
   }
 
+  /// "Copy constructor" allows to clone arguments from existing command to new one
+  factory Command.withArgumentsFrom(CommandConstructor cmdBuilder, Command other) {
+    final cmd = cmdBuilder();
+    cmd.arguments = other.arguments;
+    return cmd;
+  }
+
+  @override
+  String toString() {
+    var str = '/$name';
+    var options = arguments?.options;
+    if (options != null) {
+      for (var optName in options) {
+        str += ' --$optName ' + arguments?[optName];
+      }
+    }
+    return str;
+  }
+
   /// Additional options for command
   ///
   /// Useful if you command's behavior should be different depending on some circumstances.
