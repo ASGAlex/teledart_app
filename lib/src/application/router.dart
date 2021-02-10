@@ -49,8 +49,10 @@ class _Router {
           }
           if (data.callback_query != null) {
             var arguments = data.callback_query?.data.split(' ');
-            final parser = cmd.getParser();
-            cmd.arguments = parser?.parse(arguments);
+            if (arguments != null) {
+              final parser = cmd.getParser();
+              cmd.arguments = parser?.parse(arguments);
+            }
           }
           cmd.run(message, _telegram);
           return;
