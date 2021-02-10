@@ -1,4 +1,5 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: invalid_use_of_protected_member
 import 'package:args/src/arg_parser.dart';
 import 'package:teledart/src/telegram/model.dart';
 import 'package:teledart_app/src/application/application.dart';
