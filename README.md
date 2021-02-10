@@ -56,7 +56,7 @@ void main() {
 ```
 5. Type command "/example" into chat with bot. And see "Hello, World!" as an answer.
 
-See full working example at [simple_command.dart](example/simple_command.dart)
+See full working example at [simple_command.dart](example/lib/simple_command.dart)
 
 # Handling multiple actions in one command
 
@@ -147,13 +147,13 @@ void onButtonWithParameters(Message message, TelegramEx telegram) {
 ```
 We can access custom parameters, using `arguments` variable. 
 
-See full example at [complex_command.dart](example/complex_command.dart)
+See full example at [complex_command.dart](example/lib/complex_command.dart)
 
 # Middleware
 
 In case you need access raw `Update` object before any command will happen, use separate middleware class.
 
-See working example at [middleware.dart](example/middleware.dart)
+See working example at [middleware.dart](example/lib/middleware.dart)
 
 # Troubleshooting
 
