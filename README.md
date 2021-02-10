@@ -1,6 +1,8 @@
 # teledart_app
 API written on top of teledart, aimed to simplify work with commands and callbacks
 
+![Tests](https://github.com/ASGAlex/teledart_app/workflows/Tests/badge.svg)
+
 # Purpose
 
 This API should be useful to build interactive bots to perform different actions depending on user input either command, plain text or button push
