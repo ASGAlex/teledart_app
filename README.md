@@ -155,4 +155,4 @@ See working example at [middleware.dart](example/middleware.dart)
 
 # Troubleshooting
 
-Library was made using new null-safety functionality, but TeleDart and args packages does not use it. So "--no-sound-null-safety" VM option is needed to make this code work. 
+Library was made using new null-safety functionality, but TeleDart and args packages does not use it. So `--no-sound-null-safety` VM option is needed to make this code work. 
