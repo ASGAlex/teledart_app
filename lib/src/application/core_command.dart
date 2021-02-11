@@ -50,18 +50,21 @@ abstract class Command {
   /// If [getParser] return null, new command instance will have null [arguments]
   ///
   /// Throws [ArgParserException]
-  factory Command.withArguments(CommandConstructor cmdBuilder, Map<String, String> args) {
+  factory Command.withArguments(
+      CommandConstructor cmdBuilder, Map<String, String> args) {
     final cmd = cmdBuilder();
     final parser = cmd.getParser();
     if (parser != null) {
-      final cmdForParse = ('/${cmd.name} ' + _buildCommandArgs(args)).split(' ');
+      final cmdForParse =
+          ('/${cmd.name} ' + _buildCommandArgs(args)).split(' ');
       cmd.arguments = parser.parse(cmdForParse);
     }
     return cmd;
   }
 
   /// "Copy constructor" allows to clone arguments from existing command to new one
-  factory Command.withArgumentsFrom(CommandConstructor cmdBuilder, Command other) {
+  factory Command.withArgumentsFrom(
+      CommandConstructor cmdBuilder, Command other) {
     final cmd = cmdBuilder();
     cmd.arguments = other.arguments;
     return cmd;
@@ -191,7 +194,8 @@ class _CommandStorage {
 enum MarkdownV2EntityType { pre, code, textLink, none }
 
 extension MarkdownV2 on String {
-  String escapeMarkdownV2([MarkdownV2EntityType type = MarkdownV2EntityType.none]) {
+  String escapeMarkdownV2(
+      [MarkdownV2EntityType type = MarkdownV2EntityType.none]) {
     String whatToEscape;
     if ([MarkdownV2EntityType.code, MarkdownV2EntityType.pre].contains(type)) {
       whatToEscape = '\\`';
@@ -202,7 +206,8 @@ extension MarkdownV2 on String {
     }
     var escapedString = this;
     for (var i = 0; i < whatToEscape.length; i++) {
-      escapedString = escapedString.replaceAll(whatToEscape[i], '\\${whatToEscape[i]}');
+      escapedString =
+          escapedString.replaceAll(whatToEscape[i], '\\${whatToEscape[i]}');
     }
     return escapedString;
   }

@@ -42,15 +42,15 @@ class TestActionCommand extends ComplexCommand {
 
 void main() {
   test('Arguments Factory test', () {
-    final cmd = Command.withArguments(
-        () => TestCommand(), {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
+    final cmd = Command.withArguments(() => TestCommand(),
+        {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
     expect(cmd.arguments?['opt1'], 'option_1_Data');
     expect(cmd.arguments?['opt2'], 'option_2_Data');
   });
 
   test('Action Command Arguments Factory test', () {
-    final cmd = ComplexCommand.withAction(() => TestActionCommand(), 'testAction',
-        {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
+    final cmd = ComplexCommand.withAction(() => TestActionCommand(),
+        'testAction', {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
 
     expect(cmd.arguments?[ComplexCommand.ACTION], 'testAction');
     expect(cmd.arguments?['opt1'], 'option_1_Data');

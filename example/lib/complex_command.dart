@@ -23,7 +23,8 @@ class ExampleComplexCommand extends ComplexCommand {
   String get name => 'complex';
 
   @override
-  ArgParser getParser() => super.getParser()..addOption('param1')..addOption('param2');
+  ArgParser getParser() =>
+      super.getParser()..addOption('param1')..addOption('param2');
 
   @override
   Map<String, CmdAction> get actionMap => {
@@ -42,13 +43,14 @@ class ExampleComplexCommand extends ComplexCommand {
           ],
           [
             InlineKeyboardButton(
-                text: 'onSecondButton call', callback_data: buildAction('second'))
+                text: 'onSecondButton call',
+                callback_data: buildAction('second'))
           ],
           [
             InlineKeyboardButton(
                 text: 'onButtonWithParameters call',
-                callback_data: buildAction(
-                    'with-parameters', {'param1': 'value1', 'param2': 'value2'}))
+                callback_data: buildAction('with-parameters',
+                    {'param1': 'value1', 'param2': 'value2'}))
           ],
         ]));
   }
