@@ -202,7 +202,7 @@ extension MarkdownV2 on String {
     } else if (type == MarkdownV2EntityType.textLink) {
       whatToEscape = '\\';
     } else {
-      whatToEscape = '_[]()`>#+-=|{}.!';
+      whatToEscape = '_*[]()`>#+-=|{}.!';
     }
     var escapedString = this;
     for (var i = 0; i < whatToEscape.length; i++) {
