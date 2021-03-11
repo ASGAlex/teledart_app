@@ -19,9 +19,9 @@ part 'telegram.dart';
 ///
 /// TODO: implement an alternative of long polling
 abstract class TeledartApp {
-  TeledartApp(String token) : _telegram = TelegramEx(token);
+  TeledartApp(String token) : telegram = TelegramEx(token);
 
-  final TelegramEx _telegram;
+  final TelegramEx telegram;
 
   /// List of commands to handle user's commands and actions like callback_query
   ///
@@ -44,10 +44,10 @@ abstract class TeledartApp {
   /// Could be overridden to add custom initialisation cycle.
   @mustCallSuper
   void run() async {
-    final polling = LongPolling(_telegram);
+    final polling = LongPolling(telegram);
     Stream<Update> stream = polling.onUpdate();
 
-    final router = _Router(_telegram);
+    final router = _Router(telegram);
     for (var cmdBuilder in commands) {
       router.registerCommand(cmdBuilder);
     }
@@ -62,7 +62,7 @@ abstract class TeledartApp {
       try {
         router.dispatch(data);
       } catch (exception) {
-        onError(exception, data, _telegram);
+        onError(exception, data, telegram);
       }
     });
     print('Listening for updates from Telegram...');
