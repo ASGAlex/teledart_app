@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:teledart/model.dart';
 import 'package:teledart/teledart.dart';
 import 'package:teledart/telegram.dart';
+import 'package:teledart_app/src/application/message_deleter.dart';
 import 'package:teledart_app/src/complex_command.dart';
 
 part 'core_command.dart';
