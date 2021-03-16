@@ -9,7 +9,7 @@ mixin MessageDeleter {
   /// Sometimes we send some messages to notify about temporary progress or to make
   /// any choice. Sometimes it would be useful to delete such messages after operation
   /// is complete.
-  static void scheduleMessageDelete(int chatId, int messageId) {
+  void scheduleMessageDelete(int chatId, int messageId) {
     if (_messagesToDelete[chatId] == null) {
       _messagesToDelete[chatId] = [];
     }
@@ -17,7 +17,7 @@ mixin MessageDeleter {
   }
 
   /// Delete messages, previously marked by [scheduleMessageDelete]
-  static void deleteScheduledMessages(TelegramEx telegram) {
+  void deleteScheduledMessages(TelegramEx telegram) {
     for (var msg in _messagesToDelete.entries) {
       for (var message_id in msg.value) {
         telegram.deleteMessage(msg.key, message_id).catchError((error) {

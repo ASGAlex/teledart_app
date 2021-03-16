@@ -1,3 +1,9 @@
+## 0.0.2-dev.0
+
+- Teledart upgrade
+- Move message deleting functionality into mixin
+
+
 ## 0.0.1-dev.3
 
 - Fix missing symbols to be escaped
