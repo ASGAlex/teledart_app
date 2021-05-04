@@ -120,7 +120,7 @@ abstract class Command with MessageDeleter {
   bool get system => false;
 
   /// Main function for your business logic
-  void run(Message message, TelegramEx telegram);
+  dynamic run(Message message, TelegramEx telegram);
 
   /// Builds string representation of command call
   @mustCallSuper

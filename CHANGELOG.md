@@ -1,3 +1,7 @@
+## 0.0.2-dev.1
+
+- Catch exceptions from async run function 
+
 ## 0.0.2-dev.0
 
 - Teledart upgrade

@@ -49,6 +49,7 @@ abstract class TeledartApp {
     Stream<Update> stream = polling.onUpdate();
 
     final router = _Router(telegram);
+    router.asyncErrorHandler = onError;
     for (var cmdBuilder in commands) {
       router.registerCommand(cmdBuilder);
     }

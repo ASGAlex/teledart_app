@@ -7,6 +7,8 @@ class _Router {
   final Map<String, CommandConstructor> _commands = {};
   final List<MiddlewareConstructor> _middleware = [];
 
+  Function? asyncErrorHandler;
+
   void registerCommand(CommandConstructor commandConstructor) {
     final cmd = commandConstructor();
     _commands[cmd.name] = commandConstructor;
@@ -38,7 +40,8 @@ class _Router {
     cmd = _CommandStorage().popSavedInstance(message.chat.id);
 
     if (cmd != null) {
-      cmd.run(message, _telegram);
+      final result = cmd.run(message, _telegram);
+      _handleAsyncErrors(result, data);
     } else {
       cmd = _buildCommand(commandName);
       if (cmd != null) {
@@ -54,10 +57,21 @@ class _Router {
               cmd.arguments = parser?.parse(arguments);
             }
           }
-          cmd.run(message, _telegram);
+          final result = cmd.run(message, _telegram);
+          _handleAsyncErrors(result, data);
           return;
         }
       }
+    }
+  }
+
+  void _handleAsyncErrors(dynamic cmdResult, Update data) {
+    if (cmdResult is Future) {
+      cmdResult.catchError((exception, trace) {
+        if (asyncErrorHandler != null) {
+          asyncErrorHandler!(exception, data, _telegram);
+        }
+      });
     }
   }
 
