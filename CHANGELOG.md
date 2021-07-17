@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0
+## 1.0.0-dev1
 
 - Null safety support
 
