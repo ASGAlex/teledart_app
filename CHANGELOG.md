@@ -1,3 +1,9 @@
+# Changelog
+
+## 1.0.0
+
+- Null safety support
+
 ## 0.0.2-dev.1
 
 - Catch exceptions from async run function 

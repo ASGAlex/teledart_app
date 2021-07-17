@@ -1,4 +1,3 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
 part of application;
 
 class _Router {
@@ -51,8 +50,9 @@ class _Router {
             message.from = data.callback_query?.from;
           }
           if (data.callback_query != null) {
-            var arguments = data.callback_query?.data.split(' ');
-            if (arguments != null) {
+            final strData = data.callback_query?.data;
+            if (strData != null) {
+              var arguments = strData.split(' ');
               final parser = cmd.getParser();
               cmd.arguments = parser?.parse(arguments);
             }
@@ -79,10 +79,16 @@ class _Router {
     var commandEntity = data.message?.entityOf('bot_command');
     var command = '';
     final query = data.callback_query;
-    if (commandEntity == null && data.callback_query != null) {
-      command = query.data.split(' ').first.replaceFirst('/', '');
+    if (commandEntity == null && query != null) {
+      final queryData = query.data;
+      if (queryData != null) {
+        command = queryData.split(' ').first.replaceFirst('/', '');
+      }
     } else if (commandEntity != null) {
-      command = data.message.text.split('@').first.replaceFirst('/', '');
+      final dataMessageText = data.message?.text;
+      if (dataMessageText != null) {
+        command = dataMessageText.split('@').first.replaceFirst('/', '');
+      }
     }
     return command;
   }

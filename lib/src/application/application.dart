@@ -1,4 +1,3 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
 library application;
 
 import 'package:args/args.dart';
@@ -46,7 +45,7 @@ abstract class TeledartApp {
   @mustCallSuper
   void run() async {
     final polling = LongPolling(telegram);
-    Stream<Update> stream = polling.onUpdate();
+    var stream = polling.onUpdate();
 
     final router = _Router(telegram);
     router.asyncErrorHandler = onError;
