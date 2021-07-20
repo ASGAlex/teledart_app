@@ -26,7 +26,7 @@ class _Router {
   void dispatch(Update data) {
     final commandName = _discoverCommandName(data);
     for (var builder in _middleware) {
-      var cmd = builder();
+      final cmd = builder();
       cmd.isCallbackQuery = data.callback_query != null;
       cmd.isCmd = commandName.isNotEmpty;
       cmd.handle(data, _telegram);
