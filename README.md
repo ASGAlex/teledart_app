@@ -153,8 +153,4 @@ See full example at [complex_command.dart](example/lib/complex_command.dart)
 
 In case you need access raw `Update` object before any command will happen, use separate middleware class.
 
-See working example at [middleware.dart](example/lib/middleware.dart)
-
-# Troubleshooting
-
-Library was made using new null-safety functionality, but TeleDart package does not use it. So `--no-sound-null-safety` VM option is needed to make this code work. 
+See working example at [middleware.dart](example/lib/middleware.dart) 
