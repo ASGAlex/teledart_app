@@ -15,7 +15,7 @@ jobs:
     # available. See https://hub.docker.com/r/google/dart/ for the available
     # images.
     container:
-      image:  google/dart
+      image:  dart:stable
 
     steps:
       - uses: actions/checkout@v2
@@ -38,4 +38,4 @@ jobs:
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run tests
-        run: dart --no-sound-null-safety test
+        run: dart test
