@@ -32,7 +32,9 @@ class TestActionCommand extends ComplexCommand {
 
   @override
   ArgParser getParser() {
-    return super.getParser()..addOption('opt1')..addOption('opt2');
+    return super.getParser()
+      ..addOption('opt1')
+      ..addOption('opt2');
   }
 
   @override
@@ -41,15 +43,20 @@ class TestActionCommand extends ComplexCommand {
 
 void main() {
   test('Arguments Factory test', () {
-    final cmd = Command.withArguments(() => TestCommand(),
-        {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
+    final cmd = Command.withArguments(
+        () => TestCommand(),
+        {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'},
+        (exception, _, __) => print('async exception:' + exception.toString()));
     expect(cmd.arguments?['opt1'], 'option_1_Data');
     expect(cmd.arguments?['opt2'], 'option_2_Data');
   });
 
   test('Action Command Arguments Factory test', () {
-    final cmd = ComplexCommand.withAction(() => TestActionCommand(),
-        'testAction', {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
+    final cmd = ComplexCommand.withAction(
+        () => TestActionCommand(),
+        'testAction',
+        (exception, _, __) => print('async exception:' + exception.toString()),
+        {'opt1': 'option_1_Data', 'opt2': 'option_2_Data'});
 
     expect(cmd.arguments?[ComplexCommand.ACTION], 'testAction');
     expect(cmd.arguments?['opt1'], 'option_1_Data');

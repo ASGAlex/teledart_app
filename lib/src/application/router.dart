@@ -1,12 +1,10 @@
 part of application;
 
-class _Router {
+class _Router with AsyncErrorHandler {
   _Router(TelegramEx telegram) : _telegram = telegram;
   final TelegramEx _telegram;
   final Map<String, CommandConstructor> _commands = {};
   final List<MiddlewareConstructor> _middleware = [];
-
-  Function? asyncErrorHandler;
 
   void registerCommand(CommandConstructor commandConstructor) {
     final cmd = commandConstructor();
@@ -20,7 +18,9 @@ class _Router {
   Command? _buildCommand(String name) {
     var builder = _commands[name];
     if (builder == null) return null;
-    return builder();
+    final cmd = builder();
+    cmd.asyncErrorHandler ??= asyncErrorHandler;
+    return cmd;
   }
 
   void dispatch(Update data) {
@@ -39,8 +39,7 @@ class _Router {
     cmd = _CommandStorage().popSavedInstance(message.chat.id);
 
     if (cmd != null) {
-      final result = cmd.run(message, _telegram);
-      _handleAsyncErrors(result, data);
+      cmd.runWithErrorHandler(message, _telegram, additionalData: data);
     } else {
       cmd = _buildCommand(commandName);
       if (cmd != null) {
@@ -57,21 +56,10 @@ class _Router {
               cmd.arguments = parser?.parse(arguments);
             }
           }
-          final result = cmd.run(message, _telegram);
-          _handleAsyncErrors(result, data);
+          cmd.runWithErrorHandler(message, _telegram, additionalData: data);
           return;
         }
       }
-    }
-  }
-
-  void _handleAsyncErrors(dynamic cmdResult, Update data) {
-    if (cmdResult is Future) {
-      cmdResult.catchError((exception, trace) {
-        if (asyncErrorHandler != null) {
-          asyncErrorHandler!(exception, data, _telegram);
-        }
-      });
     }
   }
 

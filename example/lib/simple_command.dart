@@ -12,7 +12,7 @@ class ExampleApp extends TeledartApp {
   List<MiddlewareConstructor> get middleware => [];
 
   @override
-  void onError(Object exception, Update data, TelegramEx telegram) {
+  void onError(Object exception, dynamic trace, dynamic data) {
     print('Hello, Error!');
   }
 }

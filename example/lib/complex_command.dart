@@ -12,7 +12,7 @@ class ExampleApp extends TeledartApp {
   List<MiddlewareConstructor> get middleware => [];
 
   @override
-  void onError(Object exception, Update data, TelegramEx telegram) {
+  void onError(Object exception, dynamic trace, dynamic data) {
     print('Hello, Error!');
   }
 }
@@ -22,8 +22,9 @@ class ExampleComplexCommand extends ComplexCommand {
   String get name => 'complex';
 
   @override
-  ArgParser getParser() =>
-      super.getParser()..addOption('param1')..addOption('param2');
+  ArgParser getParser() => super.getParser()
+    ..addOption('param1')
+    ..addOption('param2');
 
   @override
   Map<String, CmdAction> get actionMap => {

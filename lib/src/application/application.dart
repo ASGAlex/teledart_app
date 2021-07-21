@@ -9,6 +9,7 @@ import 'package:teledart_app/src/application/message_deleter.dart';
 import 'package:teledart_app/src/complex_command.dart';
 
 part 'core_command.dart';
+part 'error_handler.dart';
 part 'middleware.dart';
 part 'router.dart';
 part 'telegram.dart';
@@ -37,7 +38,7 @@ abstract class TeledartApp {
   List<MiddlewareConstructor> get middleware;
 
   /// Catches all uncaught exceptions from custom commands and library itself
-  void onError(Object exception, Update data, TelegramEx telegram);
+  void onError(Object exception, dynamic trace, dynamic data);
 
   /// Main application flow
   ///
@@ -62,8 +63,8 @@ abstract class TeledartApp {
     stream.listen((Update data) {
       try {
         router.dispatch(data);
-      } catch (exception) {
-        onError(exception, data, telegram);
+      } catch (exception, trace) {
+        onError(exception, trace, data);
       }
     });
     print('Listening for updates from Telegram...');

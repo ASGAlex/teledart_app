@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.0.0-dev1
+## 1.0.0-dev.2
+
+- Async extension handling by default for every run() function of every command
+
+## 1.0.0-dev.1
 
 - Null safety support
 

@@ -48,10 +48,12 @@ abstract class ComplexCommand extends Command {
   static const ACTION = 'act';
 
   factory ComplexCommand.withAction(CommandConstructor cmdBuilder, String act,
+      AsyncErrorHandlerFunction? asyncErrorHandler,
       [Map<String, String>? args]) {
     args ??= {};
     args[ACTION] = act;
-    return Command.withArguments(cmdBuilder, args) as ComplexCommand;
+    return Command.withArguments(cmdBuilder, args, asyncErrorHandler)
+        as ComplexCommand;
   }
 
   @override
@@ -81,7 +83,7 @@ abstract class ComplexCommand extends Command {
 
     final actionFunc = actionMap[action];
     if (actionFunc != null && actionFunc is Function) {
-      actionFunc(message, telegram);
+      catchAsyncError(actionFunc(message, telegram), additionalData: this);
     } else {
       onNoAction(message, telegram);
     }

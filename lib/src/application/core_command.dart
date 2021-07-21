@@ -40,7 +40,7 @@ typedef CommandConstructor = Command Function();
 /// Functions [scheduleMessageDelete] and [deleteScheduledMessages] should be useful
 /// to control message flow.
 ///
-abstract class Command with MessageDeleter {
+abstract class Command with MessageDeleter, AsyncErrorHandler {
   Command();
 
   /// Build command with arguments
@@ -49,14 +49,17 @@ abstract class Command with MessageDeleter {
   /// If [getParser] return null, new command instance will have null [arguments]
   ///
   /// Throws [ArgParserException]
-  factory Command.withArguments(
-      CommandConstructor cmdBuilder, Map<String, String> args) {
+  factory Command.withArguments(CommandConstructor cmdBuilder,
+      Map<String, String> args, AsyncErrorHandlerFunction? asyncErrorHandler) {
     final cmd = cmdBuilder();
     final parser = cmd.getParser();
     if (parser != null) {
       final cmdForParse =
           ('/${cmd.name} ' + _buildCommandArgs(args)).split(' ');
       cmd.arguments = parser.parse(cmdForParse);
+      if (asyncErrorHandler != null && cmd.asyncErrorHandler == null) {
+        cmd.asyncErrorHandler = asyncErrorHandler;
+      }
     }
     return cmd;
   }
@@ -66,6 +69,7 @@ abstract class Command with MessageDeleter {
       CommandConstructor cmdBuilder, Command other) {
     final cmd = cmdBuilder();
     cmd.arguments = other.arguments;
+    cmd.asyncErrorHandler = other.asyncErrorHandler;
     return cmd;
   }
 
@@ -120,6 +124,10 @@ abstract class Command with MessageDeleter {
 
   /// Main function for your business logic
   dynamic run(Message message, TelegramEx telegram);
+
+  dynamic runWithErrorHandler(Message message, TelegramEx telegram,
+          {additionalData}) =>
+      catchAsyncError(run(message, telegram), additionalData: additionalData);
 
   /// Builds string representation of command call
   @mustCallSuper
