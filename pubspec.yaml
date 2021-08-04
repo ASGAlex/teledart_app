@@ -1,6 +1,6 @@
 name: teledart_app
 description: API written on top of teledart, aimed to simplify work with commands and callbacks
-version: 1.0.0-dev.2
+version: 1.0.0-dev.3
 repository: https://github.com/ASGAlex/teledart_app
 
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies:
   teledart: ^0.2.1
   meta: ^1.7.0
-  args: ^2.1.1
+  args: ^2.2.0
 
 dev_dependencies:
   test: ^1.17.10

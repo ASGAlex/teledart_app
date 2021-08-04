@@ -66,7 +66,13 @@ abstract class ComplexCommand extends Command {
 
   Map<String, CmdAction> get actionMap;
 
-  String get action => arguments?[ACTION] ?? '';
+  String get action {
+    try {
+      return arguments?[ACTION];
+    } catch (_) {
+      return '';
+    }
+  }
 
   late final Message message;
   late final TelegramEx telegram;

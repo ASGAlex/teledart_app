@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0-dev.3
+
+- Fix exception while invoking noAction
+
 ## 1.0.0-dev.2
 
 - Async extension handling by default for every run() function of every command
