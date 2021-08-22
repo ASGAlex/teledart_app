@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1-dev.0
+
+- Version fix
+
 ## 1.0.0-dev.3
 
 - Fix exception while invoking noAction
@@ -20,7 +24,6 @@
 
 - Teledart upgrade
 - Move message deleting functionality into mixin
-
 
 ## 0.0.1-dev.3
 
