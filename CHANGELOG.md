@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1-dev.1
+
+- MessageDeleter upgrade: add ability to filter messages by chatId or by tags or both
+
 ## 1.0.1-dev.0
 
 - Version fix
