@@ -108,6 +108,29 @@ abstract class Command with MessageDeleter, AsyncErrorHandler {
   /// should be "start".
   String get name;
 
+  static final Map<String, bool> _locked = {};
+
+  @protected
+  void lock() {
+    _locked[name] = true;
+  }
+
+  @protected
+  void unlock() {
+    _locked[name] = false;
+  }
+
+  /// Desktop and web Telegram client both has issue: fast double-click on an button
+  /// produces multiple equivalent events to occur, before the button will be
+  /// hidden by code or blocked by client.
+  ///
+  /// This flag enables by default 3-seconds lock for command execution.
+  /// Use also [lock] and [unlock] functions to enable or disable the command
+  /// manually. Use [lockDuration] to specify another time period then 3 seconds
+  bool get lockOnRun => false;
+
+  Duration get lockDuration => Duration(seconds: 3);
+
   /// Should be command called by user directly, or it is only for internal use?
   ///
   /// Each command could be used in 2 ways:
@@ -126,8 +149,18 @@ abstract class Command with MessageDeleter, AsyncErrorHandler {
   dynamic run(Message message, TelegramEx telegram);
 
   dynamic runWithErrorHandler(Message message, TelegramEx telegram,
-          {additionalData}) =>
-      catchAsyncError(run(message, telegram), additionalData: additionalData);
+      {additionalData}) {
+    final locked = _locked[name];
+    if (locked == true) return;
+    if (lockOnRun) {
+      lock();
+      Future.delayed(lockDuration, () {
+        unlock();
+      });
+    }
+    return catchAsyncError(run(message, telegram),
+        additionalData: additionalData);
+  }
 
   /// Builds string representation of command call
   @mustCallSuper

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Release?
+- Add commands locking to prevent fast multiple clicks on same button
+
 ## 1.0.1-dev.1
 
 - MessageDeleter upgrade: add ability to filter messages by chatId or by tags or both
